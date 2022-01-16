@@ -1,5 +1,6 @@
 package com.FC.Back.controller;
 
+import com.FC.Back.entities.Alumno;
 import com.FC.Back.entities.Usuario;
 import com.FC.Back.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class UsuarioController {
     public Usuario saveUsuario(@RequestBody Usuario usuario) {
         usuarioService.saveUsuario(usuario);
         return usuario;
+    }
+
+    @PostMapping("/addalumno/{email}")
+    public Usuario saveUsuario(@PathVariable("email") String email, @RequestBody Alumno alumno) {
+        usuarioService.findByEmail(email).getAlumnos().add(alumno);
+        return usuarioService.findByEmail(email);
     }
 
     @PutMapping("/update")

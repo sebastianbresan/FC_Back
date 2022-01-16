@@ -1,5 +1,6 @@
 package com.FC.Back.services;
 
+import com.FC.Back.entities.Alumno;
 import com.FC.Back.entities.Usuario;
 import com.FC.Back.repositories.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +26,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario saveUsuario(Usuario usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario addAlumno(String email, Alumno alumno) {
+        for (Usuario usuario : usuarioRepository.findAll()) {
+            if (Objects.equals(usuario.getEmail(), email)) {
+                usuario.getAlumnos().add(alumno);
+                usuarioRepository.save(usuario);
+                return usuario;
+            }
+        }
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.FC.Back.controller;
 
 import com.FC.Back.entities.Alumno;
 import com.FC.Back.services.AlumnoService;
+import com.FC.Back.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,12 @@ public class AlumnoController {
     @Autowired
     private final AlumnoService alumnoService;
 
-    public AlumnoController(AlumnoService alumnoService) {
+    @Autowired
+    private final UsuarioService usuarioService;
+
+    public AlumnoController(AlumnoService alumnoService, UsuarioService usuarioService) {
         this.alumnoService = alumnoService;
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping("find/findbyid/{id}")
@@ -30,10 +35,11 @@ public class AlumnoController {
         return alumnoService.findAll();
     }
 
-    @PostMapping("save")
-    public Alumno saveAlumno(@RequestBody Alumno alumno) {
-        alumnoService.saveAlumno(alumno);
-        return alumno; }
+    @PostMapping("/save/{email}")
+    public Alumno saveUsuario(@PathVariable("email") String email, @RequestBody Alumno alumno) {
+        alumno.setUsuario(usuarioService.findByEmail(email));
+        return alumnoService.saveAlumno(alumno);
+    }
 
     @PutMapping("update")
     public Alumno updateAlumno(@RequestBody Alumno alumno) {

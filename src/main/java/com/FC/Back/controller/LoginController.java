@@ -20,11 +20,11 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
         if(usuarioService.login(usuario.getEmail(), usuario.getPassword())){
-            return ResponseEntity.ok(usuario.getEmail());
+            return ResponseEntity.ok(usuario);
         }
-        return ResponseEntity.badRequest().body("Error de autenticación");
+        return ResponseEntity.badRequest().build();
     }
 }
 

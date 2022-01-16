@@ -50,6 +50,6 @@ public class FC_Back {
         alumnoRepository.save(new Alumno(5L, "robert@gmail.com", "Robert Lewis", "345523113", "Londres", "Inglaterra", Presencialidad.REMOTO,true, etiquetas1, u1));
         alumnoRepository.save(new Alumno(3L, "carlos@gmail.com", "Carlos De la Vega", "645499232", "Oviedo", "España", Presencialidad.PRESENCIAL,false, etiquetas1, u2));
         alumnoRepository.save(new Alumno(8L, "anderson@gmail.com", "Samuel Andersen", "653420200", "Oslo", "Suecia", Presencialidad.MIXTO,false, etiquetas1, u2));
-        alumnoRepository.save(new Alumno(5L, "juanpedro@gmail.com", "Juan Martin Lazaro", "345523113", "Londres", "Inglaterra", Presencialidad.REMOTO,true, etiquetas1, u2));
+        alumnoRepository.save(new Alumno(5L, "juanpedro@gmail.com", "Juan Martin Lazaro", "345523113", "Londres", "Inglaterra", Presencialidad.REMOTO,true, etiquetas1, u2));;
     }
 }

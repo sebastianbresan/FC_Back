@@ -1,5 +1,6 @@
 package com.FC.Back.services;
 
+import com.FC.Back.entities.Alumno;
 import com.FC.Back.entities.Usuario;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Optional;
 public interface UsuarioService {
 
     Usuario saveUsuario(Usuario usuario);
+
+    Usuario addAlumno(String email, Alumno alumno);
 
     Usuario findByEmail(String email);
 
