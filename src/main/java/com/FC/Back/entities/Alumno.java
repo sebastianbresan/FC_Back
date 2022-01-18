@@ -29,7 +29,7 @@ public class Alumno implements Serializable {
     private Presencialidad presencialidad;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.ALL
+    @ManyToOne(cascade = {CascadeType.PERSIST
     }, fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;

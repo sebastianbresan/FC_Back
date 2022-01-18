@@ -20,7 +20,11 @@ public interface UsuarioService {
 
     Optional<Usuario> findById(Long id);
 
+    boolean existsByEmail(String email);
+
     boolean deleteById(Long id);
+
+    boolean deleteById(String email);
 
     boolean deleteAll();
 

@@ -49,6 +49,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public boolean deleteById(String email) {
+        return false;
+    }
+
+    @Override
     public boolean deleteAll() {
         usuarioRepository.deleteAll();
         return true;
@@ -65,6 +70,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (id == null || id <= 0)
             return Optional.empty();
         return usuarioRepository.findById(id);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        for (Usuario usuario: usuarioRepository.findAll()
+             ) { if (Objects.equals(usuario.getEmail(), email))
+                 return true;
+        } return false;
     }
 
     @Override

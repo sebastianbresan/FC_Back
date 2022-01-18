@@ -10,6 +10,10 @@ public interface AlumnoService {
 
     boolean deleteById(Long id);
 
+    void deleteAllByUser(List<String> email);
+
+    void deleteByEmail(String email);
+
     boolean deleteAll();
 
     List<Alumno> findAll();
