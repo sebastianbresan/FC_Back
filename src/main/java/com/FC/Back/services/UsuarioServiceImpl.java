@@ -1,8 +1,11 @@
 package com.FC.Back.services;
 
+import com.FC.Back.dto.MiUserDetails;
 import com.FC.Back.entities.Alumno;
 import com.FC.Back.entities.Usuario;
 import com.FC.Back.repositories.UsuarioRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario saveUsuario(Usuario usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -107,4 +109,4 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return null;
     }
-}
+    }

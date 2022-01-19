@@ -20,6 +20,8 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Alumno> alumnos = new ArrayList<>();
 
+    private boolean activo;
+
     public Usuario() {
     }
 
@@ -66,6 +68,14 @@ public class Usuario implements Serializable {
 
     public void setAlumnos(List<Alumno> alumnos) {
         this.alumnos = alumnos;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     @Serial

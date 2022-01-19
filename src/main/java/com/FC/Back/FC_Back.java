@@ -43,6 +43,8 @@ public class FC_Back {
 
         Usuario u1 = new Usuario( null, "admin1@admin.com", passwordEncoder.encode("123456"));
         Usuario u2 = new Usuario( null, "admin2@admin.com", passwordEncoder.encode("123456"));
+        u1.setActivo(true);
+        u2.setActivo(true);
 
         usuarioRepository.save(u1);
         usuarioRepository.save(u2);

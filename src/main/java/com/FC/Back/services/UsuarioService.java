@@ -6,7 +6,7 @@ import com.FC.Back.entities.Usuario;
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioService {
+public interface UsuarioService  {
 
     Usuario saveUsuario(Usuario usuario);
 
