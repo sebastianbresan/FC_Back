@@ -1,9 +1,13 @@
 package com.FC.Back.services;
 
 import com.FC.Back.entities.Alumno;
+import com.FC.Back.entities.Etiqueta;
 import com.FC.Back.repositories.AlumnoRepository;
+import com.FC.Back.repositories.EtiquetaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -11,14 +15,43 @@ import java.util.Optional;
 @Service
 public class AlumnoServiceImpl implements AlumnoService {
 
+    @Autowired
     private final AlumnoRepository alumnoRepository;
+    @Autowired
+    private final EtiquetaRepository etiquetaRepository;
+    @Autowired
+    private final EtiquetaService etiquetaService;
 
-    public AlumnoServiceImpl(AlumnoRepository alumnoRepository) {
+
+    public AlumnoServiceImpl(AlumnoRepository alumnoRepository, EtiquetaRepository etiquetaRepository, EtiquetaService etiquetaService) {
         this.alumnoRepository = alumnoRepository;
+        this.etiquetaRepository = etiquetaRepository;
+        this.etiquetaService = etiquetaService;
     }
 
     @Override
     public Alumno saveAlumno(Alumno alumno) {
+
+        List<Long> indice = new ArrayList<>();
+
+        List<Etiqueta> etiquetas = new ArrayList<>();
+
+        for (Etiqueta ea : alumno.getEtiquetas()
+        ) {
+            if (etiquetaService.findByLenguaje(ea.getLenguaje())) {
+                indice.add(etiquetaService.findByLenguajeString(ea.getLenguaje()).getId());
+            }
+            else etiquetas.add(ea);
+        }
+        alumno.getEtiquetas().clear();
+
+        for (Long in : indice
+        ) {
+            alumno.getEtiquetas().add(etiquetaRepository.getById(in));
+        }
+        etiquetaRepository.saveAll(etiquetas);
+        alumno.getEtiquetas().addAll(etiquetas);
+
         return alumnoRepository.save(alumno);
     }
 
@@ -32,10 +65,10 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public void deleteAllByUser(List<String> email) {
-            for (Alumno alumno : alumnoRepository.findAll()
+        for (Alumno alumno : alumnoRepository.findAll()
+        ) {
+            for (String emailToDelete : email
             ) {
-                for (String emailToDelete : email
-                ) {
 
                 if (Objects.equals(alumno.getEmail(), emailToDelete)) {
                     alumnoRepository.delete(alumno);

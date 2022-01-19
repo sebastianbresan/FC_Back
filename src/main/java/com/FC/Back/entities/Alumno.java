@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "alumnos")
@@ -34,18 +34,19 @@ public class Alumno implements Serializable {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @ManyToMany(cascade = {CascadeType.ALL
+    @ManyToMany(cascade = {CascadeType.PERSIST
     })
     @JoinTable(name = "alumnos_etiquetas",
             joinColumns = @JoinColumn(name = "alumno_id"),
             inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
     )
-    private Set<Etiqueta> etiquetas = new HashSet<>();
+    private List<Etiqueta> etiquetas = new ArrayList<>();
 
     public Alumno() {
     }
 
-    public Alumno(Long id, String email, String nombre, String telefono, String ciudad, String pais, Presencialidad presencialidad, boolean traslado, Set<Etiqueta> etiquetas, Usuario usuario) {
+    public Alumno(Long id, String email, String nombre, String telefono, String ciudad, String pais, Presencialidad presencialidad, boolean traslado, List
+<Etiqueta> etiquetas, Usuario usuario) {
         this.id = id;
         this.email = email;
         this.nombre = nombre;
@@ -122,11 +123,13 @@ public class Alumno implements Serializable {
         this.traslado = traslado;
     }
 
-    public Set<Etiqueta> getEtiquetas() {
+    public List
+<Etiqueta> getEtiquetas() {
         return etiquetas;
     }
 
-    public void setEtiquetas(Set<Etiqueta> etiquetas) {
+    public void setEtiquetas(List
+<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
     }
 
