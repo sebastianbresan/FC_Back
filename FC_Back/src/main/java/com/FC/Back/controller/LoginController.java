@@ -26,28 +26,15 @@ public class LoginController {
     @Autowired
     private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private final AuthenticationManager authManager;
-    @Autowired
     private final MiUserDetailsService miUserDetailsService;
     @Autowired
     private final JwtUtil jwtUtil;
 
-    public LoginController(UsuarioService usuarioService, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authManager, MiUserDetailsService miUserDetailsService, JwtUtil jwtUtil) {
+    public LoginController(UsuarioService usuarioService, BCryptPasswordEncoder passwordEncoder, MiUserDetailsService miUserDetailsService, JwtUtil jwtUtil) {
         this.usuarioService = usuarioService;
         this.passwordEncoder = passwordEncoder;
-        this.authManager = authManager;
         this.miUserDetailsService = miUserDetailsService;
         this.jwtUtil = jwtUtil;
-    }
-
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registrarse(@RequestBody Usuario usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        usuario.setActivo(true);
-        usuarioService.saveUsuario(usuario);
-
-        return ResponseEntity.ok("Usuario registrado correctamente");
     }
 
     @PostMapping("login")

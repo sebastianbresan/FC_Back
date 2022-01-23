@@ -10,7 +10,7 @@ public interface AlumnoService {
 
     boolean deleteById(Long id);
 
-    void deleteAllByUser(List<String> email);
+    void deleteAllByUser(String email);
 
     void deleteByEmail(String email);
 

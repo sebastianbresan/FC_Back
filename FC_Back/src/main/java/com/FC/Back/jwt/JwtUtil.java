@@ -34,7 +34,7 @@ public class JwtUtil {
      * @param token token al que se le extraera el claim subject.
      * @return el username del token
      */
-    public String extraerUsername(String token){
+    public String extraerEmail(String token){
         return extraerContenidoClaims(token).getSubject();
     }
 
@@ -89,7 +89,7 @@ public class JwtUtil {
     }
 
     public boolean validarToken(String token, UserDetails userDetails) {
-        final String username = extraerUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpiration(token));
+        final String email = extraerEmail(token);
+        return (email.equals(userDetails.getUsername()) && !isTokenExpiration(token));
     }
 }

@@ -5,10 +5,7 @@ import com.FC.Back.services.AlumnoService;
 import com.FC.Back.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -59,9 +56,8 @@ public class AlumnoController {
         alumnoService.deleteAll();
     }
 
-    @PostMapping("/delete/deleteallbyuser")
-    public void deleteallbyuser(@RequestBody List<String> email) {
-        System.out.println(email);
-        alumnoService.deleteAllByUser(email);
+    @DeleteMapping("/delete/deleteallbyuser/{email}")
+    public void deleteallbyuser(@PathVariable("email") String email) {
+         alumnoService.deleteAllByUser(email);
     }
 }

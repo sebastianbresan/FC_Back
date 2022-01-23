@@ -31,13 +31,13 @@ public class AuthFiltroToken extends OncePerRequestFilter {
 
         final String headerAuth = request.getHeader("Authorization");
         String token = null;
-        String username = null;
+        String email = null;
         if(headerAuth != null && headerAuth.startsWith("Bearer ")){
             token = headerAuth.substring(7);
-            username = jwtUtil.extraerUsername(token);
+            email = jwtUtil.extraerEmail(token);
         }
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             if (jwtUtil.validarToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken userPassAuthToken =

@@ -32,4 +32,4 @@ public class AutenticacionLogin implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-} // fin de la clase
+}

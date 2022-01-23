@@ -3,11 +3,8 @@ package com.FC.Back.dto;
 
 import com.FC.Back.entities.Usuario;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Esta clase proporciona la implementacion para establecer informacion del usuario.

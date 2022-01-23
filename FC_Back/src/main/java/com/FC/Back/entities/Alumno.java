@@ -31,7 +31,7 @@ public class Alumno implements Serializable {
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST
     }, fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToMany(cascade = {CascadeType.PERSIST
@@ -46,7 +46,7 @@ public class Alumno implements Serializable {
     }
 
     public Alumno(Long id, String email, String nombre, String telefono, String ciudad, String pais, Presencialidad presencialidad, boolean traslado, List
-<Etiqueta> etiquetas, Usuario usuario) {
+            <Etiqueta> etiquetas, Usuario usuario) {
         this.id = id;
         this.email = email;
         this.nombre = nombre;
@@ -123,13 +123,11 @@ public class Alumno implements Serializable {
         this.traslado = traslado;
     }
 
-    public List
-<Etiqueta> getEtiquetas() {
+    public List<Etiqueta> getEtiquetas() {
         return etiquetas;
     }
 
-    public void setEtiquetas(List
-<Etiqueta> etiquetas) {
+    public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
     }
 
@@ -143,7 +141,7 @@ public class Alumno implements Serializable {
 
     @Override
     public String toString() {
-        String tras = "";
+        String tras;
         if (traslado) {
             tras = "Si";
         } else {

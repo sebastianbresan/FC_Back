@@ -64,15 +64,12 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public void deleteAllByUser(List<String> email) {
+    public void deleteAllByUser(String email) {
         for (Alumno alumno : alumnoRepository.findAll()
         ) {
-            for (String emailToDelete : email
-            ) {
-
-                if (Objects.equals(alumno.getEmail(), emailToDelete)) {
-                    alumnoRepository.delete(alumno);
-                }
+            if (alumno.getUsuario() != null && alumno.getUsuario().getEmail().equals(email)) {
+                alumno.setUsuario(null);
+                alumnoRepository.save(alumno);
             }
         }
     }
@@ -111,4 +108,5 @@ public class AlumnoServiceImpl implements AlumnoService {
     public Alumno update(Alumno alumno) {
         return alumnoRepository.save(alumno);
     }
+
 }
