@@ -8,7 +8,7 @@ public interface AlumnoService {
 
     Alumno saveAlumno(Alumno alumno);
 
-    boolean deleteById(Long id);
+    Alumno deleteById(Long id);
 
     void deleteAllByUser(String email);
 
@@ -18,7 +18,11 @@ public interface AlumnoService {
 
     List<Alumno> findAll();
 
+    List<Alumno> findAllWithoutUser();
+
     Optional<Alumno> findById(Long id);
 
     Alumno update(Alumno alumno);
+
+    Alumno updateEmail(String email, Long id);
 }

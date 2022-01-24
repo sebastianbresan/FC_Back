@@ -2,6 +2,7 @@ package com.FC.Back.services;
 
 import com.FC.Back.entities.Alumno;
 import com.FC.Back.entities.Etiqueta;
+import com.FC.Back.entities.Usuario;
 import com.FC.Back.repositories.AlumnoRepository;
 import com.FC.Back.repositories.EtiquetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,15 @@ public class AlumnoServiceImpl implements AlumnoService {
     @Autowired
     private final EtiquetaRepository etiquetaRepository;
     @Autowired
+    private final UsuarioService usuarioService;
+    @Autowired
     private final EtiquetaService etiquetaService;
 
 
-    public AlumnoServiceImpl(AlumnoRepository alumnoRepository, EtiquetaRepository etiquetaRepository, EtiquetaService etiquetaService) {
+    public AlumnoServiceImpl(AlumnoRepository alumnoRepository, EtiquetaRepository etiquetaRepository, UsuarioService usuarioService, EtiquetaService etiquetaService) {
         this.alumnoRepository = alumnoRepository;
         this.etiquetaRepository = etiquetaRepository;
+        this.usuarioService = usuarioService;
         this.etiquetaService = etiquetaService;
     }
 
@@ -40,8 +44,7 @@ public class AlumnoServiceImpl implements AlumnoService {
         ) {
             if (etiquetaService.findByLenguaje(ea.getLenguaje())) {
                 indice.add(etiquetaService.findByLenguajeString(ea.getLenguaje()).getId());
-            }
-            else etiquetas.add(ea);
+            } else etiquetas.add(ea);
         }
         alumno.getEtiquetas().clear();
 
@@ -56,11 +59,16 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        if (id == null || !alumnoRepository.existsById(id))
-            return false;
-        alumnoRepository.deleteById(id);
-        return true;
+    public Alumno deleteById(Long id) {
+        for (Alumno alumno : alumnoRepository.findAll()
+        ) {
+            if (Objects.equals(alumno.getId(), id)) {
+                alumno.setUsuario(null);
+                alumnoRepository.save(alumno);
+                return alumno;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -98,6 +106,18 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
+    public List<Alumno> findAllWithoutUser() {
+        List<Alumno> alumnos = new ArrayList<>();
+        for (Alumno alumno : alumnoRepository.findAll()
+        ) {
+            if (alumno.getUsuario() == null) {
+                alumnos.add(alumno);
+            }
+        }
+        return alumnos;
+    }
+
+    @Override
     public Optional<Alumno> findById(Long id) {
         if (id == null || id <= 0)
             return Optional.empty();
@@ -109,4 +129,20 @@ public class AlumnoServiceImpl implements AlumnoService {
         return alumnoRepository.save(alumno);
     }
 
+    @Override
+    public Alumno updateEmail(String email, Long id) {
+        for (Alumno a : alumnoRepository.findAll()
+        ) {
+            if (Objects.equals(a.getId(), id)) {
+                for (Usuario usuario : usuarioService.findAll()
+                ) {
+                    if (Objects.equals(email, ((char) 34 + usuario.getEmail() + (char) 34))) {
+                        a.setUsuario(usuario);
+                        return alumnoRepository.save(a);
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }

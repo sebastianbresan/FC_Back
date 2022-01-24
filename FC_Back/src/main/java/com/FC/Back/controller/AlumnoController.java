@@ -34,6 +34,11 @@ public class AlumnoController {
         return alumnoService.findAll();
     }
 
+    @GetMapping("find/findallwithoutuser")
+    public List<Alumno> findAlumnosWithoutUser() {
+        return alumnoService.findAllWithoutUser();
+    }
+
     @PostMapping("/save/{email}")
     public Alumno saveUsuario(@PathVariable("email") String email, @RequestBody Alumno alumno) {
         alumno.setUsuario(usuarioService.findByEmail(email));
@@ -44,6 +49,11 @@ public class AlumnoController {
     public Alumno updateAlumno(@RequestBody Alumno alumno) {
         alumnoService.update(alumno);
         return alumno;
+    }
+
+    @PutMapping("update/{id}")
+    public Alumno updateAlumno(@RequestBody String email, @PathVariable("id") Long id) {
+       return alumnoService.updateEmail(email,id);
     }
 
     @DeleteMapping("/delete/deletebyid/{id}")
