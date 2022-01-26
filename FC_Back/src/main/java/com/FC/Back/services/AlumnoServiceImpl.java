@@ -126,6 +126,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public Alumno update(Alumno alumno) {
+        alumno.setUsuario(alumnoRepository.findById(alumno.getId()).get().getUsuario());
         return alumnoRepository.save(alumno);
     }
 
